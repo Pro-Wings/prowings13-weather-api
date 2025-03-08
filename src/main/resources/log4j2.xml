@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Appenders>
+		<!-- Console Appender: Prints logs to the console -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] [city = %X{city}] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<RollingFile name="MinuteRollingFileAppender"
+			fileName="logs/app.log"
+			filePattern="logs/app-%d{yyyy-MM-dd-HH-mm}.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<logger
+			name="org.springframework.web.filter.CommonsRequestLoggingFilter">
+			<level value="DEBUG" />
+		</logger>
+		<!-- Logger for a specific package/class -->
+		<!-- <Logger name="com.prowings" level="debug" additivity="false"> <AppenderRef 
+			ref="Console"/> </Logger> -->
+		<!-- Root Logger: Applies to all logs -->
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="MinuteRollingFileAppender" />
+		</Root>
+	</Loggers>
+
+</Configuration>
