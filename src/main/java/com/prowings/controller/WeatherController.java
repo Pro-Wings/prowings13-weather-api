@@ -34,6 +34,9 @@ public class WeatherController {
 	private Map<String, Double> getLatLong(String cityName) {
 		
 		log.info("Fetching lat and long for city: {}", cityName);
+		
+		//call another api to get lat/long from city name
+		
 		Map<String, Double> latLong = new HashMap<>();
 		latLong.put("lat", 18.6135);
 		latLong.put("long", 73.7666);

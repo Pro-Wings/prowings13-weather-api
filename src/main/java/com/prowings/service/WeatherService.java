@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,9 @@ public class WeatherService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-
+	@Autowired
+	private DozerBeanMapper mapper;
+	
 	private String apiKey = "aea2c2eaeb4020c7d96e8c22ce8d0bb2";
 
 	private ObjectMapper objectMapper = new ObjectMapper();
@@ -64,13 +67,16 @@ public class WeatherService {
 		log.info("Converting CurrentWeatherData to CityWeatherData...");
 		CityWeatherData cityWeatherData = new CityWeatherData();
 
-		cityWeatherData.setCityName(currentWeatherData.getName());
-		cityWeatherData.setTemperature(kelvinToCelsius(currentWeatherData.getMain().getTemp()));
-		cityWeatherData.setHumidity(currentWeatherData.getMain().getHumidity());
-		cityWeatherData.setFeels_like(kelvinToCelsius(currentWeatherData.getMain().getFeels_like()));
-		cityWeatherData.setVisibility(currentWeatherData.getVisibility());
-		cityWeatherData.setSunrise(convertEpochToTimestamp(currentWeatherData.getSys().getSunrise()));
-		cityWeatherData.setSunset(convertEpochToTimestamp(currentWeatherData.getSys().getSunset()));
+//		cityWeatherData.setCityName(currentWeatherData.getName());
+//		cityWeatherData.setTemperature(kelvinToCelsius(currentWeatherData.getMain().getTemp()));
+//		cityWeatherData.setHumidity(currentWeatherData.getMain().getHumidity());
+//		cityWeatherData.setFeels_like(kelvinToCelsius(currentWeatherData.getMain().getFeels_like()));
+//		cityWeatherData.setVisibility(currentWeatherData.getVisibility());
+//		cityWeatherData.setSunrise(convertEpochToTimestamp(currentWeatherData.getSys().getSunrise()));
+//		cityWeatherData.setSunset(convertEpochToTimestamp(currentWeatherData.getSys().getSunset()));
+		
+		mapper.map(cityWeatherData, currentWeatherData);
+		
 		return cityWeatherData;
 	}
 

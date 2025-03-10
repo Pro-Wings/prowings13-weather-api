@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+      http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	<mapping>
+		<class-a>com.prowings.models.CurrentWeatherData</class-a>
+		<class-b>com.prowings.models.response.CityWeatherData</class-b>
+		<field>
+			<a>name</a>
+			<b>cityName</b>
+		</field>
+		<field
+			custom-converter="com.prowings.config.KelvinToCelciusConverter">
+			<a>main.temp</a>
+			<b>temperature</b>
+		</field>
+		<field
+			custom-converter="com.prowings.config.KelvinToCelciusConverter">
+			<a>main.feels_like</a>
+			<b>feels_like</b>
+		</field>
+		<field
+			custom-converter="com.prowings.config.EpochToTimestampConverter">
+			<a>sys.sunrise</a>
+			<b>sunrise</b>
+		</field>
+		<field
+			custom-converter="com.prowings.config.EpochToTimestampConverter">
+			<a>sys.sunset</a>
+			<b>sunset</b>
+		</field>
+	</mapping>
+</mappings>
